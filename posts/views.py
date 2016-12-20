@@ -86,7 +86,7 @@ def post_detail(request, slug=None):
         "comments": comments,
         "comment_form": form,
     }
-    return render(request, "post_detail.html", context)
+    return render(request, "posts/post_detail.html", context)
 
 
 def post_list(request):
@@ -121,7 +121,7 @@ def post_list(request):
         "page_request_var": page_request_var,
         "today": today,
     }
-    return render(request, "post_list.html", context)
+    return render(request, "posts/post_list.html", context)
 
 
 def post_update(request, slug=None):
