@@ -92,6 +92,7 @@ def post_detail(request, slug=None):
 def post_list(request):
     today = timezone.now().date()
     queryset_list = Post.objects.active()  # .order_by("-timestamp")
+    last_post = Post.objects.active().order_by("timestamp").first()
     if request.user.is_staff or request.user.is_superuser:
         queryset_list = Post.objects.all()
 
@@ -103,7 +104,7 @@ def post_list(request):
             Q(user__first_name__icontains=query) |
             Q(user__last_name__icontains=query)
         ).distinct()
-    paginator = Paginator(queryset_list, 8)  # Show 25 contacts per page
+    paginator = Paginator(queryset_list, 6)  # Show 25 contacts per page
     page_request_var = "page"
     page = request.GET.get(page_request_var)
     try:
@@ -120,6 +121,7 @@ def post_list(request):
         "title": "List",
         "page_request_var": page_request_var,
         "today": today,
+        "last_post": last_post
     }
     return render(request, "posts/post_list.html", context)
 
@@ -150,3 +152,6 @@ def post_delete(request, slug=None):
     instance.delete()
     messages.success(request, "Successfully deleted")
     return redirect("posts:list")
+
+
+

@@ -17,6 +17,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' >
     <link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
 <link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css' />
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
 <script src="{% static 'js/jquery.min.js' %}"></script>
 
 <!---- start-smoth-scrolling---->
@@ -53,12 +54,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><a href="#">About</a></li>
 						<li><a href="#">Gallery</a></li>
 						<li><a href="#">Contact</a></li>
+                        {% if not request.user.is_authenticated %}
+                            <li class='pull-right'><a href='{% url "register" %}'>Register</a></li>
+                            <li class='pull-right'><a href='{% url "login" %}'>Login</a></li>
+                            {% else %}
+                            <li class='pull-right'><a href='{% url "logout" %}'>Logout</a></li>
+                        {% endif %}
 					</ul>
 			</div>
 			<div class="header-right">
 				<div class="search-bar">
-					<input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
+                    <form method='GET' action='' class='row'>
+					<input type="text" name="q" value="{{ request.GET.q }}"  onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
 					<input type="submit" value="">
+                    </form>
 				</div>
 				<ul>
 					<li><a href="#"><span class="fb"> </span></a></li>
