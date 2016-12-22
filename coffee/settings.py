@@ -45,8 +45,12 @@ INSTALLED_APPS = [
     'rest_framework',
 
 # local apps
-     'comments',
-     'posts',
+    'comments',
+    'posts',
+    'about',
+    'gallery',
+    'contact',
+
 ]
 
 MIDDLEWARE = [
@@ -135,8 +139,8 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join("static_coffee", "static_root")
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media_coffee")
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join("static_coffee", "media_root")
 
 
 REST_FRAMEWORK = {

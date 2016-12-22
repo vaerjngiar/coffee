@@ -21,6 +21,7 @@ from comments.forms import CommentForm
 from comments.models import Comment
 from .forms import PostForm
 from .models import Post
+from about.forms import SignUpForm
 
 
 def post_create(request):
@@ -116,12 +117,22 @@ def post_list(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         queryset = paginator.page(paginator.num_pages)
 
+    if request.method == 'POST':
+        sign_up_form = SignUpForm(request.POST or None)
+        if sign_up_form.is_valid():
+            email = sign_up_form.cleaned_data.get('email')
+            sign_up_form.save()
+            return HttpResponseRedirect('/')
+    else:
+        sign_up_form = SignUpForm()
+
     context = {
         "object_list": queryset,
         "title": "List",
         "page_request_var": page_request_var,
         "today": today,
-        "last_post": last_post
+        "last_post": last_post,
+        'sign_up_form': sign_up_form,
     }
     return render(request, "posts/post_list.html", context)
 

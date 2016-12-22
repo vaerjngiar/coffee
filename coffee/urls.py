@@ -28,12 +28,16 @@ urlpatterns = [
     url(r'^register/', register_view, name='register'),
     url(r'^login/', login_view, name='login'),
     url(r'^logout/', logout_view, name='logout'),
+    url(r'^about/', include('about.urls', namespace='about')),
+    url(r'^gallery/', include('gallery.urls', namespace='gallery')),
+    url(r'^contact/', include('contact.urls', namespace='contact')),
+
+
     url(r'^', include("posts.urls", namespace='posts')),
     url(r'^api/auth/token/', obtain_jwt_token),
     url(r'^api/users/', include("accounts.api.urls", namespace='users-api')),
     url(r'^api/comments/', include("comments.api.urls", namespace='comments-api')),
     url(r'^api/posts/', include("posts.api.urls", namespace='posts-api')),
-
 
 ]
 

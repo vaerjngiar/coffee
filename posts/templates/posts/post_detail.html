@@ -3,6 +3,10 @@
 {% load urlify %}
 {% load crispy_forms_tags %}
 
+{% block navigation %}
+    {% include "nav.html" with is_home=True %}
+{% endblock %}
+
 {% block content %}
     <!--start-single-->
 	<div class="single">
@@ -27,6 +31,7 @@
 					      	<div class="media-body">
 						        <h4 class="media-heading">{{ comment.user }}</h4>
 						        <p>{{ comment.content }}</p>
+                                <p>------------------------- </p>
                                 <p>{{ comment.timestamp|timesince }} ago </p>
 					      	</div>
 					      <div class="media-right">
@@ -45,6 +50,7 @@
             <input type='submit' value='Post comment' class='btn btn-default'>
         </form>
         {% else %}
+
         <p>You must login to comment </p>
         {% endif %}
         <hr/>
